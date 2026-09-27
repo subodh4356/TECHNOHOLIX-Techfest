@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080808">
+<title>Techfest IIT Bombay 2026 — An Aetherial Renaissance</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+:root{
+  --bg:#080808;--paper:#f2efe5;--muted:#9b9a94;--cyan:#73f6ff;
+  --violet:#8d73ff;--gold:#d8b56b;--line:rgba(242,239,229,.16);
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--paper);font-family:"Space Grotesk",system-ui,sans-serif;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;z-index:100;pointer-events:none;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+.mono{font-family:"DM Mono",monospace}
+.progress{position:fixed;top:0;left:0;width:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--violet),var(--gold));z-index:200}
+.cursor{position:fixed;z-index:190;width:12px;height:12px;border:1px solid var(--cyan);border-radius:50%;pointer-events:none;mix-blend-mode:difference;transform:translate(-50%,-50%);transition:width .25s,height .25s}
+.cursor.big{width:42px;height:42px}
+nav{position:fixed;z-index:150;top:18px;left:50%;transform:translateX(-50%);width:min(1240px,calc(100% - 36px));display:flex;justify-content:space-between;align-items:center;padding:12px 15px 12px 18px;border:1px solid rgba(242,239,229,.14);background:rgba(8,8,8,.42);backdrop-filter:blur(16px);transition:.5s var(--ease)}
+nav.scrolled{background:rgba(8,8,8,.82);border-color:rgba(115,246,255,.2)}
+.logo{font-weight:700;letter-spacing:.16em;font-size:.78rem}
+.navlinks{display:flex;gap:24px;font-size:.68rem;text-transform:uppercase;letter-spacing:.12em;color:#b8b6af}
+.navlinks a{transition:color .25s}.navlinks a:hover{color:var(--cyan)}
+.nav-register{padding:8px 12px;border:1px solid rgba(242,239,229,.22);font-size:.67rem;letter-spacing:.1em}
+
+section{position:relative;overflow:hidden}
+.kicker{font:400 .67rem "DM Mono",monospace;letter-spacing:.18em;text-transform:uppercase;color:var(--cyan)}
+.line{height:1px;background:var(--line)}
+.reveal{opacity:0;transform:translateY(50px);transition:opacity 1s var(--ease),transform 1.1s var(--ease)}
+.reveal.visible{opacity:1;transform:none}
+.display{font-size:clamp(4.2rem,12.5vw,13rem);font-weight:600;letter-spacing:-.085em;line-height:.78;margin:0}
+.smallcopy{color:var(--muted);line-height:1.75;font-size:.92rem;max-width:530px}
+
+.hero{min-height:100svh;display:grid;place-items:center;background:
+ radial-gradient(circle at 65% 42%,rgba(141,115,255,.14),transparent 25%),
+ radial-gradient(circle at 25% 72%,rgba(115,246,255,.07),transparent 25%),#080808}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:80px 80px;mask-image:linear-gradient(to bottom,black,transparent 90%)}
+.hero-copy{position:relative;z-index:8;width:min(1300px,90%);padding-top:7vh}
+.hero-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}
+.hero-title{position:relative}
+.hero-title .tech{font-size:clamp(5rem,17vw,18rem);line-height:.72}
+.hero-title .fest{font-size:clamp(5rem,17vw,18rem);line-height:.78;margin-left:11vw;color:transparent;-webkit-text-stroke:1px var(--paper)}
+.hero-30{position:absolute;right:2%;top:5%;font-size:clamp(9rem,28vw,31rem);line-height:.7;color:transparent;-webkit-text-stroke:1px rgba(115,246,255,.34);z-index:-1}
+.hero-theme{display:flex;justify-content:space-between;align-items:flex-end;margin-top:34px;gap:30px}
+.hero-theme h2{font-size:clamp(1.1rem,2vw,2rem);letter-spacing:.01em;font-weight:400;margin:0;max-width:420px}
+.hero-meta{display:flex;gap:20px;color:#aaa79f;font:400 .66rem "DM Mono";text-transform:uppercase}
+.ctas{display:flex;gap:10px;margin-top:35px}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 18px;border:1px solid rgba(242,239,229,.25);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;transition:.35s var(--ease);position:relative;overflow:hidden}
+.btn:before{content:"";position:absolute;inset:0;background:var(--paper);transform:translateY(101%);transition:transform .35s var(--ease);z-index:-1}
+.btn:hover{color:#080808;border-color:var(--paper);transform:translateY(-3px)}.btn:hover:before{transform:none}
+.btn.primary{background:var(--paper);color:#080808}.btn.primary:before{background:var(--cyan)}.btn.primary:hover{border-color:var(--cyan)}
+.scrollhint{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);font:400 .6rem "DM Mono";letter-spacing:.18em;color:#777;text-transform:uppercase}
+.scrollhint:after{content:"";display:block;width:1px;height:55px;background:linear-gradient(var(--cyan),transparent);margin:10px auto 0}
+.aether{position:absolute;inset:-15%;z-index:2;pointer-events:none}
+.aether svg{width:100%;height:100%;overflow:visible}
+.orbit{fill:none;stroke:rgba(115,246,255,.27);stroke-width:.6}
+.orbit.v{stroke:rgba(141,115,255,.3)}
+.orbit.g{stroke:rgba(216,181,107,.24)}
+.aether-core{position:absolute;left:66%;top:43%;width:8vw;height:8vw;min-width:70px;min-height:70px;border-radius:50%;background:radial-gradient(circle,#fff 0 1%,var(--cyan) 5%,var(--violet) 25%,transparent 68%);filter:blur(1px);box-shadow:0 0 90px rgba(115,246,255,.3)}
+.particle{position:absolute;width:2px;height:2px;background:var(--paper);border-radius:50%;opacity:.7}
+
+.legacy{min-height:150vh;padding:15vh 6vw;background:#0a0a0a}
+.legacy-head{display:grid;grid-template-columns:1.3fr .7fr;gap:8vw;align-items:end;max-width:1400px;margin:auto}
+.legacy-big{font-size:clamp(7rem,23vw,26rem);line-height:.7;letter-spacing:-.1em;color:transparent;-webkit-text-stroke:1px rgba(242,239,229,.75)}
+.timeline{margin:16vh auto 0;max-width:1400px;position:relative}
+.timeline-track{height:1px;background:var(--line);position:absolute;top:50%;left:0;right:0}
+.timeline-items{display:grid;grid-template-columns:repeat(5,1fr);gap:25px;position:relative}
+.milestone{padding-top:45px;position:relative}.milestone:before{content:"";position:absolute;top:calc(50% - 4px);left:0;width:8px;height:8px;border:1px solid var(--cyan);background:#080808;border-radius:50%;box-shadow:0 0 20px rgba(115,246,255,.4)}
+.milestone:nth-child(even){padding-top:0;padding-bottom:45px}.milestone:nth-child(even):before{top:calc(50% - 4px)}
+.year{font-size:clamp(2rem,4vw,4rem);letter-spacing:-.06em}.milestone h3{font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;margin:10px 0}.milestone p{font-size:.7rem;color:#777;line-height:1.6;max-width:180px}
+
+.arena{min-height:125vh;padding:14vh 6vw;background:#0d0d0d}
+.arena-head{max-width:1400px;margin:auto;display:flex;justify-content:space-between;align-items:end;gap:40px}
+.arena-title{font-size:clamp(4rem,10vw,11rem);letter-spacing:-.08em;line-height:.8}
+.arena-grid{max-width:1400px;margin:10vh auto 0;display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.arena-card{min-height:260px;padding:25px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);position:relative;transition:.5s var(--ease);overflow:hidden}
+.arena-card:after{content:"";position:absolute;width:180px;height:180px;border-radius:50%;right:-70px;bottom:-80px;background:radial-gradient(circle,rgba(115,246,255,.25),transparent 65%);opacity:0;transition:.5s}
+.arena-card:hover{background:#111;transform:translateY(-5px)}.arena-card:hover:after{opacity:1}
+.card-num{font:400 .62rem "DM Mono";color:#666}.arena-card h3{font-size:clamp(2rem,4vw,4rem);font-weight:500;letter-spacing:-.07em;margin:70px 0 0}.arena-card p{color:#777;font-size:.7rem;text-transform:uppercase;letter-spacing:.1em}.arena-card:hover h3{color:var(--cyan)}
+
+.lab{min-height:120vh;padding:14vh 6vw;background:#e9e5d8;color:#111}
+.lab .kicker{color:#5d4ed0}.lab-wrap{max-width:1400px;margin:auto;display:grid;grid-template-columns:.75fr 1.25fr;gap:9vw}.lab-title{font-size:clamp(4rem,9vw,10rem);line-height:.8;letter-spacing:-.09em}.blueprint{position:relative;min-height:620px;border:1px solid rgba(17,17,17,.22);background:linear-gradient(rgba(17,17,17,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(17,17,17,.07) 1px,transparent 1px);background-size:42px 42px;overflow:hidden}.blueprint svg{position:absolute;inset:4%;width:92%;height:92%}.bp-line{fill:none;stroke:#111;stroke-width:1}.bp-dot{fill:#111}.lab-cards{position:absolute;right:5%;bottom:5%;display:grid;gap:7px;width:min(330px,80%)}.lab-card{background:#111;color:#eee;padding:18px;transform:translateX(35px);transition:.8s var(--ease)}.lab-card:nth-child(2){margin-left:35px}.lab-card:nth-child(3){margin-left:70px}.lab-card h3{font-size:1rem;margin:0 0 5px}.lab-card span{font:400 .6rem "DM Mono";color:#888}
+
+.experience{min-height:500vh;background:#070707}
+.sticky-experience{position:sticky;top:0;height:100svh;display:flex;align-items:center;overflow:hidden}
+.exp-track{display:flex;align-items:center;gap:7vw;padding-left:8vw;will-change:transform}
+.exp-word{
+      position:relative;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      flex:0 0 auto;
+      min-width:max-content;
+      white-space:nowrap;
+    }
+.exp-word .word-main{
+      display:block;
+      font-size:clamp(6rem,18vw,21rem);
+      line-height:.72;
+      letter-spacing:-.1em;
+      color:transparent;
+      -webkit-text-stroke:1px rgba(242,239,229,.75);
+    }
+
+.crowd{min-height:115vh;padding:15vh 6vw;background:#111}
+.crowd-wrap{max-width:1400px;margin:auto}.crowd-title{font-size:clamp(3rem,8vw,9rem);letter-spacing:-.08em;line-height:.82;margin-bottom:12vh}.stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.stat{padding:35px 18px;border-right:1px solid var(--line)}.stat:last-child{border-right:0}.stat-num{font-size:clamp(2.8rem,5vw,6rem);letter-spacing:-.08em}.stat-label{font:400 .6rem "DM Mono";color:#777;text-transform:uppercase;letter-spacing:.1em;margin-top:15px}
+
+.techno{min-height:120vh;background:#080611;display:grid;place-items:center}
+.techno:before{content:"";position:absolute;inset:-30%;background:repeating-conic-gradient(from 0deg,rgba(115,246,255,.12) 0 2deg,transparent 2deg 12deg);animation:spin 24s linear infinite;filter:blur(8px)}
+.techno:after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,transparent 0 18%,#080611 55%);z-index:1}
+@keyframes spin{to{transform:rotate(360deg)}}
+.techno-copy{position:relative;z-index:4;text-align:center}.techno-title{font-size:clamp(5rem,16vw,18rem);letter-spacing:-.1em;line-height:.72;color:transparent;-webkit-text-stroke:1px var(--paper)}.techno-title span{color:var(--cyan);-webkit-text-stroke:0}.streaks{position:absolute;inset:0;overflow:hidden}.streak{position:absolute;height:1px;width:35vw;background:linear-gradient(90deg,transparent,var(--cyan),transparent);animation:streak 3s linear infinite;opacity:.35}.streak:nth-child(1){top:25%;left:-30%;animation-delay:-1s}.streak:nth-child(2){top:48%;left:-10%;animation-delay:-2s}.streak:nth-child(3){top:72%;left:-40%;animation-delay:-.4s}@keyframes streak{to{transform:translateX(180vw)}}
+
+.campus{min-height:105vh;padding:15vh 6vw;background:#e9e5d8;color:#111}.campus-wrap{max-width:1400px;margin:auto}.campus-grid{display:grid;grid-template-columns:.7fr 1.3fr;gap:8vw;align-items:center}.campus-title{font-size:clamp(4rem,10vw,11rem);line-height:.75;letter-spacing:-.09em}.campus-art{height:520px;border-bottom:1px solid #111;position:relative;overflow:hidden}.campus-art svg{width:100%;height:100%}.campus-art path,.campus-art line,.campus-art rect,.campus-art circle{fill:none;stroke:#111;stroke-width:1}.campus-art .accent{stroke:#5d4ed0;stroke-width:2}.campus-caption{display:flex;justify-content:space-between;margin-top:15px;font:400 .62rem "DM Mono";color:#666}
+
+.final{min-height:100svh;display:grid;place-items:center;text-align:center;background:#050505}.final h2{font-size:clamp(5rem,15vw,17rem);line-height:.7;letter-spacing:-.1em;margin:20px 0}.final h2 span{color:transparent;-webkit-text-stroke:1px var(--paper)}.final-meta{font:400 .65rem "DM Mono";letter-spacing:.16em;color:#777}.final .btn{margin-top:35px}
+
+@media(max-width:900px){
+ nav{top:8px;width:calc(100% - 16px)}.navlinks{display:none}
+ .hero-copy{padding-top:12vh}.hero-top{margin-bottom:20px}.hero-theme{display:block}.hero-meta{margin-top:20px}.aether-core{left:58%;top:38%}
+ .legacy-head,.lab-wrap,.campus-grid{grid-template-columns:1fr}.legacy{min-height:130vh}.timeline{margin-top:10vh}.timeline-items{grid-template-columns:1fr}.timeline-track{left:3px;top:0;bottom:0;width:1px;height:auto}.milestone,.milestone:nth-child(even){padding:0 0 60px 35px}.milestone:before,.milestone:nth-child(even):before{left:0;top:5px}
+ .arena-grid{grid-template-columns:1fr 1fr}.arena-head{display:block}.arena-title{margin-top:20px}
+ .lab{padding-top:10vh}.blueprint{min-height:500px;margin-top:20px}
+ .stats{grid-template-columns:1fr 1fr}.stat:nth-child(2){border-right:0}.stat{border-bottom:1px solid var(--line)}
+ .campus-art{height:400px}
+}
+@media(max-width:560px){
+.exp-word .word-main{font-size:20vw}
+ .display{font-size:20vw}.hero-title .tech,.hero-title .fest{font-size:22vw}.hero-title .fest{margin-left:7vw}
+ .hero-meta{flex-wrap:wrap}.ctas{flex-direction:column;width:100%}.btn{width:100%}
+ .arena-grid{grid-template-columns:1fr}.arena-card{min-height:220px}.arena-card h3{margin-top:50px}
+ .stats{grid-template-columns:1fr}.stat{border-right:0!important}.stat:last-child{border-bottom:0}
+ .final h2{font-size:21vw}
+}
+@media(prefers-reduced-motion:reduce){
+ html{scroll-behavior:auto}.orbit,.techno:before,.streak{animation:none!important}.reveal{transition:none}.cursor{display:none}
+}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div><div class="cursor" id="cursor"></div>
+
+<nav id="nav">
+  <a class="logo" href="#top">TECHFEST / 30</a>
+  <div class="navlinks">
+    <a href="#legacy">Events</a><a href="#arena">Competitions</a><a href="#lab">Workshops</a><a href="#experience">Experience</a>
+  </div>
+  <a class="nav-register" href="#register">REGISTER ↗</a>
+</nav>
+
+<main id="top">
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="aether" id="aether"></div>
+  <div class="aether-core" id="core"></div>
+  <div class="hero-copy">
+    <div class="hero-top"><span class="kicker">IIT BOMBAY PRESENTS</span><span class="mono" style="font-size:.62rem;color:#777">16—18 / 12 / 2026</span></div>
+    <div class="hero-title">
+      <div class="hero-30">30</div>
+      <h1 class="display tech">TECH</h1>
+      <h1 class="display fest">FEST</h1>
+    </div>
+    <div class="hero-theme">
+      <h2>AN AETHERIAL<br>RENAISSANCE.</h2>
+      <div>
+        <div class="hero-meta"><span>IIT BOMBAY</span><span>30TH EDITION</span></div>
+        <div class="ctas"><a class="btn primary magnetic" href="#arena">ENTER TECHFEST</a><a class="btn magnetic" href="#legacy">EXPLORE EVENTS</a></div>
+      </div>
+    </div>
+  </div>
+  <div class="scrollhint">SCROLL TO ENTER</div>
+</section>
+
+<section class="legacy" id="legacy">
+  <div class="legacy-head">
+    <div class="reveal"><div class="kicker">01 / THE LEGACY</div><div class="legacy-big">30</div></div>
+    <div class="reveal"><h2 style="font-size:clamp(2rem,4vw,4rem);letter-spacing:-.06em;font-weight:400">THIRTY YEARS<br>OF TOMORROW.</h2><p class="smallcopy">From a student-led technology festival to a meeting point for ideas, builders, researchers and curious minds. The next chapter starts here.</p></div>
+  </div>
+  <div class="timeline reveal">
+    <div class="timeline-track"></div>
+    <div class="timeline-items">
+      <article class="milestone"><div class="year">1998</div><h3>The beginning</h3><p>A small idea takes its first steps on the IIT Bombay campus.</p></article>
+      <article class="milestone"><div class="year">2005</div><h3>Going national</h3><p>Competitions and challenges begin reaching ambitious students across India.</p></article>
+      <article class="milestone"><div class="year">2014</div><h3>Beyond campus</h3><p>Techfest grows into a major convergence of technology, culture and innovation.</p></article>
+      <article class="milestone"><div class="year">2020</div><h3>A new medium</h3><p>Technology changes how communities connect, compete and create.</p></article>
+      <article class="milestone"><div class="year">2026</div><h3>The renaissance</h3><p>The 30th edition opens a new chapter: an aetherial renaissance.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="arena" id="arena">
+  <div class="arena-head reveal"><div><div class="kicker">02 / THE ARENA</div><h2 class="arena-title">MAKE.<br>BREAK.<br>REPEAT.</h2></div><p class="smallcopy">Where ideas stop being ideas. Enter challenges built around technology, engineering, imagination and the stubborn desire to solve what looks impossible.</p></div>
+  <div class="arena-grid reveal">
+    <a class="arena-card magnetic" href="#register"><span class="card-num">01 / FIELD</span><h3>AI</h3><p>Intelligence / Systems / Models</p></a>
+    <a class="arena-card magnetic" href="#register"><span class="card-num">02 / FIELD</span><h3>ROBOTICS</h3><p>Machines / Motion / Autonomy</p></a>
+    <a class="arena-card magnetic" href="#register"><span class="card-num">03 / FIELD</span><h3>CODING</h3><p>Logic / Speed / Algorithms</p></a>
+    <a class="arena-card magnetic" href="#register"><span class="card-num">04 / FIELD</span><h3>ENGINEERING</h3><p>Build / Test / Iterate</p></a>
+    <a class="arena-card magnetic" href="#register"><span class="card-num">05 / FIELD</span><h3>INNOVATION</h3><p>Ideas / Impact / Futures</p></a>
+    <a class="arena-card magnetic" href="#register"><span class="card-num">06 / FIELD</span><h3>DRONES</h3><p>Flight / Control / Vision</p></a>
+  </div>
+</section>
+
+<section class="lab" id="lab">
+  <div class="lab-wrap">
+    <div class="reveal"><div class="kicker">03 / THE LAB</div><h2 class="lab-title">LEARN<br>THE<br>UNKNOWN.</h2><p style="max-width:380px;line-height:1.7;color:#666">Step inside workshops designed to turn curiosity into capability. Learn from people who build, research and experiment at the edge of what is possible.</p></div>
+    <div class="blueprint reveal">
+      <svg viewBox="0 0 800 650">
+        <circle class="bp-line" cx="390" cy="315" r="190"/><circle class="bp-line" cx="390" cy="315" r="125"/><circle class="bp-line" cx="390" cy="315" r="55"/>
+        <path class="bp-line" d="M40 315H740M390 40V610M120 100L660 530M660 100L120 530"/>
+        <path class="bp-line" d="M390 315L680 180L735 190M390 315L180 520L95 505"/>
+        <circle class="bp-dot" cx="390" cy="315" r="6"/><circle class="bp-dot" cx="680" cy="180" r="5"/>
+        <path class="bp-line" d="M40 80H250M40 95H190M540 560H750M590 575H750"/>
+      </svg>
+      <div class="lab-cards">
+        <div class="lab-card"><span>WORKSHOP / 01</span><h3>Machine Intelligence</h3></div>
+        <div class="lab-card"><span>WORKSHOP / 02</span><h3>Future Fabrication</h3></div>
+        <div class="lab-card"><span>WORKSHOP / 03</span><h3>Systems Thinking</h3></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="experience" id="experience">
+  <div class="sticky-experience">
+    <div class="exp-track" id="expTrack">
+      <div class="exp-word">COMPETE</div>
+      <div class="exp-word">BUILD</div>
+      <div class="exp-word">LEARN</div>
+      <div class="exp-word">CREATE</div>
+      <div class="exp-word">CONNECT</div>
+    </div>
+  </div>
+</section>
+
+<section class="crowd">
+  <div class="crowd-wrap">
+    <div class="reveal"><div class="kicker">05 / THE CROWD</div><h2 class="crowd-title">ONE FESTIVAL.<br>THOUSANDS OF<br>FUTURES.</h2></div>
+    <div class="stats reveal">
+      <div class="stat"><div class="stat-num" data-count="30">0</div><div class="stat-label">30th Edition</div></div>
+      <div class="stat"><div class="stat-num" data-count="300" data-suffix="+">0</div><div class="stat-label">Events</div></div>
+      <div class="stat"><div class="stat-num" data-count="180" data-suffix="K+">0</div><div class="stat-label">Footfall</div></div>
+      <div class="stat"><div class="stat-num" data-count="2500" data-suffix="+">0</div><div class="stat-label">Colleges</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="techno">
+  <div class="streaks"><i class="streak"></i><i class="streak"></i><i class="streak"></i></div>
+  <div class="techno-copy reveal"><div class="kicker">06 / TECHNOHOLIX</div><h2 class="techno-title">TECHNO<span>HOLIX</span></h2><p class="smallcopy" style="margin:30px auto">When the experiments end, the festival doesn't. Light, sound, movement and a crowd moving as one.</p></div>
+</section>
+
+<section class="campus">
+  <div class="campus-wrap">
+    <div class="campus-grid">
+      <div class="reveal"><div class="kicker">07 / IIT BOMBAY</div><h2 class="campus-title">THE<br>HOME<br>OF<br>IDEAS.</h2></div>
+      <div class="reveal">
+        <div class="campus-art">
+          <svg viewBox="0 0 900 520">
+            <path d="M80 420H820M120 420V300L210 245L300 300V420M350 420V190L450 125L550 190V420M610 420V275L700 225L790 275V420"/>
+            <path d="M350 190L450 80L550 190M390 155H510M415 120H485"/>
+            <path d="M160 300H260M390 250H510M650 300H750"/>
+            <rect x="405" y="325" width="90" height="95"/><rect x="185" y="340" width="50" height="80"/><rect x="665" y="340" width="50" height="80"/>
+            <circle class="accent" cx="450" cy="80" r="7"/><path class="accent" d="M450 80V40M430 60H470"/>
+          </svg>
+        </div>
+        <div class="campus-caption"><span>POWAI / MUMBAI / INDIA</span><span>19°08′N / 72°53′E</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="final" id="register">
+  <div class="reveal">
+    <div class="kicker">30TH EDITION / 16—18 DECEMBER 2026</div>
+    <h2>THE <span>FUTURE</span><br>IS WAITING.</h2>
+    <div class="final-meta">IIT BOMBAY · MUMBAI · INDIA</div>
+    <a class="btn primary magnetic" href="#top">REGISTER NOW →</a>
+  </div>
+</section>
+</main>
+
+<script>
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const progress = document.getElementById('progress');
+const nav = document.getElementById('nav');
+const cursor = document.getElementById('cursor');
+const exp = document.getElementById('expTrack');
+let scrollY = 0, targetY = 0, px = innerWidth/2, py = innerHeight/2;
+
+function buildParticles(){
+  const field=document.getElementById('aether');
+  for(let i=0;i<260;i++){
+    const p=document.createElement('i');p.className='particle';
+    p.style.left=(Math.random()*100)+'%';p.style.top=(Math.random()*100)+'%';
+    p.style.opacity=(.15+Math.random()*.7).toFixed(2);
+    p.style.transform=`scale(${.5+Math.random()*1.8})`;
+    field.appendChild(p);
+  }
+  const ns='http://www.w3.org/2000/svg', svg=document.createElementNS(ns,'svg');
+  svg.setAttribute('viewBox','0 0 1000 700');svg.setAttribute('preserveAspectRatio','none');
+  for(let i=0;i<9;i++){
+    const e=document.createElementNS(ns,'ellipse');e.setAttribute('class','orbit '+(i%3===0?'v':i%3===1?'g':''));e.setAttribute('cx','660');e.setAttribute('cy','360');
+    e.setAttribute('rx',180+i*38);e.setAttribute('ry',55+i*20);e.setAttribute('transform',`rotate(${i*19-50} 660 360)`);
+    svg.appendChild(e);
+  }
+  field.appendChild(svg);
+}
+buildParticles();
+
+addEventListener('pointermove',e=>{
+  px=e.clientX;py=e.clientY;
+  if(cursor){cursor.style.left=px+'px';cursor.style.top=py+'px'}
+  if(!reduce){
+    const x=(px/innerWidth-.5)*2,y=(py/innerHeight-.5)*2;
+    document.getElementById('core').style.transform=`translate(${x*24}px,${y*18}px)`;
+    document.querySelectorAll('.particle').forEach((p,i)=>{
+      if(i%4===0)p.style.marginLeft=(x*(i%7)*1.3)+'px';
+    });
+  }
+},{passive:true});
+
+document.querySelectorAll('.magnetic').forEach(el=>{
+  el.addEventListener('pointermove',e=>{
+    if(reduce)return;
+    const r=el.getBoundingClientRect(),x=e.clientX-r.left-r.width/2,y=e.clientY-r.top-r.height/2;
+    el.style.transform=`translate(${x*.12}px,${y*.12}px)`;
+  });
+  el.addEventListener('pointerleave',()=>el.style.transform='');
+});
+document.querySelectorAll('.arena-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>cursor.classList.add('big'));
+  el.addEventListener('mouseleave',()=>cursor.classList.remove('big'));
+});
+
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      e.target.querySelectorAll?.('.lab-card').forEach((c,i)=>setTimeout(()=>c.style.transform='translateX(0)',i*120));
+      e.target.querySelectorAll?.('[data-count]').forEach(counter=>{
+        const end=+counter.dataset.count,suffix=counter.dataset.suffix||'';let start=0;
+        const t0=performance.now(),duration=1400;
+        function count(t){const p=Math.min(1,(t-t0)/duration),v=Math.round(end*(1-Math.pow(1-p,4)));counter.textContent=v.toLocaleString()+suffix;if(p<1)requestAnimationFrame(count)}
+        requestAnimationFrame(count);
+      });
+    }
+  });
+},{threshold:.18});
+document.querySelectorAll('.reveal').forEach(x=>observer.observe(x));
+
+let raf;
+function tick(){
+  scrollY+=(targetY-scrollY)*.08;
+  const max=document.documentElement.scrollHeight-innerHeight;
+  progress.style.width=Math.max(0,Math.min(100,scrollY/max*100))+'%';
+  nav.classList.toggle('scrolled',scrollY>60);
+  if(exp){
+    const section=document.querySelector('.experience'),r=section.getBoundingClientRect();
+    const p=Math.max(0,Math.min(1,-r.top/(section.offsetHeight-innerHeight)));
+    const travel=Math.max(0,exp.scrollWidth-innerWidth*.92);
+    exp.style.transform=`translateX(${-p*travel}px)`;
+  }
+  raf=requestAnimationFrame(tick);
+}
+addEventListener('scroll',()=>{targetY=scrollY},{passive:true});
+targetY=scrollY;raf=requestAnimationFrame(tick);
+</script>
+</body>
+</html>
